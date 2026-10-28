@@ -82,6 +82,10 @@ Please check the [existing issues](https://github.com/Juls-BI/project-controls-g
 
 The visual does not collect, store or send any data. It makes no network requests. Read the [privacy policy](https://juls-bi.github.io/project-controls-gantt/privacy.html).
 
+## See also
+
+[Power BI Gantt Visual (Preview): Sample and Workarounds](https://github.com/Juls-BI/power-bi-gantt-preview) has a sample report and DAX workarounds for Microsoft's built-in Gantt visual (preview), and lists the gaps this visual was built to fill.
+
 ## Build from source
 
 You only need this if you want to change the visual. To use it, download the `.pbiviz` from Releases instead.

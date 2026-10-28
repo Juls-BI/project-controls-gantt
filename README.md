@@ -1,4 +1,10 @@
 # Project Controls Gantt
+[![Latest release](https://img.shields.io/github/v/release/Juls-BI/project-controls-gantt?style=flat&label=release)](https://github.com/Juls-BI/project-controls-gantt/releases/latest)
+![Power BI](https://img.shields.io/badge/Power%20BI-custom%20visual-F2C811?style=flat&logo=powerbi&logoColor=black)
+![API 5.11.1](https://img.shields.io/badge/visuals%20API-5.11.1-0078D4?style=flat)
+![WCAG 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-2E7D32?style=flat)
+![Tests](https://img.shields.io/badge/tests-26%20passing-2E7D32?style=flat)
+[![License: MIT](https://img.shields.io/github/license/Juls-BI/project-controls-gantt?style=flat)](LICENSE)
 
 A free custom visual for Microsoft Power BI that turns a project schedule into an accessible Gantt chart, with baselines, progress, a reporting cut-off line and predecessor and successor logic checks.
 

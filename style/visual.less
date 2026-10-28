@@ -1,0 +1,424 @@
+.gantt {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--g-bg);
+    color: var(--g-fg);
+    font-family: Verdana, "Segoe UI", sans-serif;
+    font-size: 18pt;
+    line-height: 1.4;
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+}
+
+.gantt-body {
+    display: contents;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.gantt-message {
+    margin: 0;
+    padding: 12px;
+}
+
+// The legend sits at the top of the visual. Its alignment comes from the format pane, left by default.
+.gantt-legend {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 4px var(--g-legend-gap, 16px);
+    margin: 0;
+    padding: 6px 8px;
+    list-style: none;
+    color: var(--g-legend-fg, var(--g-fg));
+    font-size: var(--g-legend-size, 18pt);
+    border-bottom: 1px solid var(--g-line);
+
+    &:empty {
+        display: none;
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+}
+
+// Toolbar buttons sit top right, above the legend, and are at least 24 by 24 px (WCAG 2.5.8).
+.gantt-toolbar {
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 0 4px;
+    margin-bottom: 2px;
+
+    &:empty {
+        display: none;
+    }
+}
+
+.gantt-button {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 2px 10px;
+    font: inherit;
+    color: var(--g-fg);
+    background: var(--g-bg);
+    border: 1px solid var(--g-fg);
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--g-line);
+    }
+
+    &[aria-pressed="true"] {
+        color: var(--g-bg);
+        background: var(--g-fg);
+    }
+
+    &:focus-visible {
+        outline: 3px solid var(--g-fg);
+        outline-offset: 2px;
+    }
+}
+
+.gantt-checks {
+    flex: 0 0 auto;
+    border-bottom: 1px solid var(--g-line);
+
+    summary {
+        display: flex;
+        align-items: center;
+        min-width: 24px;
+        min-height: 24px;
+        padding: 2px 8px;
+        cursor: pointer;
+    }
+
+    summary:focus-visible {
+        outline: 3px solid var(--g-fg);
+        outline-offset: -3px;
+    }
+
+    ul {
+        max-height: 140px;
+        margin: 0;
+        padding: 4px 8px 8px 28px;
+        overflow: auto;
+    }
+}
+
+.gantt-scroll {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.gantt-table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        padding: 0 var(--g-cell-pad, 8px);
+        text-align: left;
+        white-space: nowrap;
+        border-bottom: 1px solid var(--g-line);
+        background: var(--g-bg);
+    }
+
+    thead th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        height: 28px;
+        vertical-align: bottom;
+        padding-bottom: 4px;
+        color: var(--g-head-fg);
+        background: var(--g-head-bg);
+        border-bottom: 2px solid var(--g-head-fg);
+    }
+
+    thead th.gantt-axis {
+        padding: 0;
+    }
+
+    tbody th {
+        font-weight: 600;
+    }
+
+    tr.gantt-band > th,
+    tr.gantt-band > td {
+        background: var(--g-band);
+    }
+
+    tr.gantt-group > th,
+    tr.gantt-group > td {
+        font-weight: 600;
+        background: var(--g-row-bg, var(--g-bg));
+    }
+
+    // The first column stays put while the timeline scrolls sideways, like the frozen task list in the native Gantt.
+    th:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+    }
+
+    thead th:first-child {
+        z-index: 2;
+    }
+
+    .gantt-flag {
+        margin: 0 0 0 6px;
+    }
+
+    tr[data-row]:focus {
+        outline: 3px solid var(--g-fg);
+        outline-offset: -3px;
+    }
+
+    td.gantt-timeline {
+        padding: 0;
+    }
+
+    svg {
+        display: block;
+    }
+
+    .gantt-icon {
+        display: inline-block;
+        margin-right: 6px;
+        vertical-align: -2px;
+    }
+}
+
+// The expand arrow is a 24 by 24 px pointer target (WCAG 2.5.8).
+.gantt-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-right: 0;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 2px;
+
+    &:hover {
+        background: var(--g-line);
+    }
+
+    svg {
+        display: block;
+    }
+}
+
+// Icons, legend swatches and expand boxes scale with the text size so they stay in proportion at large sizes.
+.gantt-legend svg {
+    width: auto;
+    height: 0.75em;
+}
+
+.gantt-table .gantt-icon,
+.gantt-legend .gantt-icon {
+    width: 0.85em;
+    height: 0.85em;
+}
+
+.gantt-toggle {
+    width: max(24px, 1.1em);
+    height: max(24px, 1.1em);
+
+    svg {
+        width: 0.6em;
+        height: 0.6em;
+    }
+}
+
+// Logic trace bar and row badges. The badge words say the link type, so it never depends on colour.
+.gantt-trace {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 12px;
+    padding: 4px 8px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--g-line);
+}
+
+.gantt-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 0 6px;
+    font-size: 0.7em;
+    font-weight: 400;
+    vertical-align: middle;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+}
+
+.gantt-table tr.gantt-traced > th,
+.gantt-table tr.gantt-traced > td {
+    font-weight: 700;
+    background: var(--g-line);
+}
+
+.gantt-table tbody tr[data-row] {
+    cursor: pointer;
+}
+
+// The menu, the logic check summary and the trace bar are supporting text, so they follow the User Menu settings instead of the larger grid text or the legend.
+.gantt-toolbar,
+.gantt-checks,
+.gantt-trace,
+.gantt-footnote {
+    font-family: var(--g-menu-font, inherit);
+    font-size: var(--g-menu-size, inherit);
+    color: var(--g-menu-fg, var(--g-fg));
+}
+
+.gantt-toolbar {
+    position: relative;
+}
+
+.gantt-footnote {
+    flex: 0 0 auto;
+    margin: 4px 0 0;
+    padding: 2px 8px;
+}
+
+.gantt-menu-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    svg {
+        width: 1em;
+        height: 1em;
+    }
+}
+
+// Menu button pattern: a list of menu items that opens below the button. Each item is at least 24 px tall (WCAG 2.5.8).
+.gantt-menu {
+    position: absolute;
+    top: 100%;
+    right: 4px;
+    z-index: 10;
+    min-width: 12em;
+    margin: 2px 0 0;
+    padding: 4px 0;
+    list-style: none;
+    color: var(--g-fg);
+    background: var(--g-bg);
+    border: 1px solid var(--g-fg);
+    border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+
+    &[hidden] {
+        display: none;
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 4px 12px 4px 2em;
+        cursor: pointer;
+        position: relative;
+    }
+
+    li:hover {
+        background: var(--g-line);
+    }
+
+    li:focus {
+        outline: 3px solid var(--g-fg);
+        outline-offset: -3px;
+    }
+
+    li.gantt-menu-divider {
+        min-height: 0;
+        height: 1px;
+        margin: 4px 0;
+        padding: 0;
+        background: var(--g-line);
+        cursor: default;
+    }
+
+    li.gantt-menu-heading {
+        min-height: 0;
+        padding: 4px 12px 2px;
+        font-weight: 600;
+        cursor: default;
+    }
+
+    li.gantt-menu-divider:hover,
+    li.gantt-menu-heading:hover {
+        background: transparent;
+    }
+
+    li[aria-checked="true"]::before {
+        content: "\2713";
+        position: absolute;
+        left: 0.6em;
+    }
+}
+
+// The summary keeps a visible disclosure arrow so it reads as something that opens.
+.gantt-checks summary {
+    list-style: none;
+
+    &::-webkit-details-marker {
+        display: none;
+    }
+
+    &::before {
+        content: "\25B8";
+        display: inline-block;
+        width: 1.2em;
+    }
+}
+
+.gantt-checks[open] summary::before {
+    content: "\25BE";
+}
+
+// Power BI's own frame styles can set a fixed size on list items, which breaks inheritance for the legend and the menu. These rules make every list, item and label take its font from the setting that owns it.
+.gantt ul,
+.gantt li,
+.gantt li span,
+.gantt summary {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.gantt .gantt-legend li,
+.gantt .gantt-legend li span,
+.gantt .gantt-menu li {
+    font-family: inherit !important;
+    font-size: inherit !important;
+}

@@ -1,0 +1,1123 @@
+{
+    "privileges": [],
+    "supportsKeyboardFocus": true,
+    "supportsLandingPage": true,
+    "supportsEmptyDataView": true,
+    "supportsMultiVisualSelection": true,
+    "tooltips": {
+        "supportedTypes": {
+            "default": true,
+            "canvas": true
+        },
+        "roles": [
+            "tooltipFields"
+        ]
+    },
+    "dataRoles": [
+        {
+            "name": "taskId",
+            "displayName": "Task ID",
+            "description": "Unique task identifier. Must be a text column so letters and leading zeros are preserved.",
+            "kind": "Grouping",
+            "requiredTypes": [
+                {
+                    "text": true
+                }
+            ]
+        },
+        {
+            "name": "taskName",
+            "displayName": "Task name",
+            "kind": "Grouping",
+            "requiredTypes": [
+                {
+                    "text": true
+                }
+            ]
+        },
+        {
+            "name": "itemType",
+            "displayName": "Item or activity type",
+            "description": "Optional. Text such as Task, Milestone, or a P6 Activity Type. Rows containing the word Milestone (or the word set in the format pane) are drawn as diamonds.",
+            "kind": "Grouping",
+            "requiredTypes": [
+                {
+                    "text": true
+                }
+            ]
+        },
+        {
+            "name": "baselineStart",
+            "displayName": "Baseline start",
+            "kind": "Grouping",
+            "description": "Date column. Leave as a date so Power BI does not build a date hierarchy."
+        },
+        {
+            "name": "baselineFinish",
+            "displayName": "Baseline finish",
+            "kind": "Grouping",
+            "description": "Date column. Leave as a date so Power BI does not build a date hierarchy."
+        },
+        {
+            "name": "plannedStart",
+            "displayName": "Planned start",
+            "kind": "Grouping",
+            "description": "Planned (forecast) start date. Actual dates up to the cut-off and planned dates after it are both fine. Shown in the grid as Planned start."
+        },
+        {
+            "name": "plannedFinish",
+            "displayName": "Planned finish",
+            "kind": "Grouping",
+            "description": "Planned (forecast) finish date. Actual dates up to the cut-off and planned dates after it are both fine. Shown in the grid as Planned finish."
+        },
+        {
+            "name": "cutoffDate",
+            "displayName": "Report cut-off date",
+            "description": "Optional. The reporting cut-off or data date. Use a date column such as DataDate, or a measure such as MAX(Settings[Cut-off]). Draws the cut-off line and marks earlier planned dates as actual.",
+            "kind": "GroupingOrMeasure"
+        },
+        {
+            "name": "holidays",
+            "displayName": "Holidays",
+            "description": "Optional measure that lists holiday dates as text, for example CONCATENATEX ( Holidays, FORMAT ( Holidays[Date], \"yyyy-mm-dd\" ), \",\" ). Used when delay is counted in working days.",
+            "kind": "Measure"
+        },
+        {
+            "name": "percentComplete",
+            "displayName": "Percent complete",
+            "description": "A column or measure on a 0 to 1 or 0 to 100 scale. Text such as 45% also works. Use Don't summarize for a column.",
+            "kind": "GroupingOrMeasure"
+        },
+        {
+            "name": "predecessors",
+            "displayName": "Predecessors",
+            "description": "Text cell with comma separated Task IDs.",
+            "kind": "Grouping",
+            "requiredTypes": [
+                {
+                    "text": true
+                }
+            ]
+        },
+        {
+            "name": "successors",
+            "displayName": "Successors",
+            "description": "Text cell with comma separated Task IDs.",
+            "kind": "Grouping",
+            "requiredTypes": [
+                {
+                    "text": true
+                }
+            ]
+        },
+        {
+            "name": "totalFloat",
+            "displayName": "Total float (days)",
+            "description": "Optional. When supplied, float of zero or less is treated as critical.",
+            "kind": "GroupingOrMeasure"
+        },
+        {
+            "name": "extraColumns",
+            "displayName": "Columns",
+            "description": "Optional. Extra fields such as Owner or Status, shown on task rows only and left blank on group rows.",
+            "kind": "Grouping"
+        },
+        {
+            "name": "group",
+            "displayName": "Group by",
+            "description": "Optional. Up to six fields, outermost first, for example Project then Phase. Each level becomes a collapsible group.",
+            "kind": "Grouping",
+            "requiredTypes": [
+                {
+                    "text": true
+                }
+            ]
+        },
+        {
+            "name": "tooltipFields",
+            "displayName": "Tooltips",
+            "description": "Optional. Extra columns or measures shown only in the tooltip.",
+            "kind": "GroupingOrMeasure"
+        }
+    ],
+    "dataViewMappings": [
+        {
+            "conditions": [
+                {
+                    "taskId": {
+                        "min": 1,
+                        "max": 1
+                    },
+                    "taskName": {
+                        "max": 1
+                    },
+                    "baselineStart": {
+                        "max": 1
+                    },
+                    "baselineFinish": {
+                        "max": 1
+                    },
+                    "plannedStart": {
+                        "max": 1
+                    },
+                    "plannedFinish": {
+                        "max": 1
+                    },
+                    "percentComplete": {
+                        "max": 1
+                    },
+                    "predecessors": {
+                        "max": 1
+                    },
+                    "successors": {
+                        "max": 1
+                    },
+                    "totalFloat": {
+                        "max": 1
+                    },
+                    "group": {
+                        "max": 6
+                    },
+                    "cutoffDate": {
+                        "max": 1
+                    },
+                    "extraColumns": {
+                        "max": 8
+                    },
+                    "itemType": {
+                        "max": 1
+                    },
+                    "tooltipFields": {
+                        "max": 10
+                    },
+                    "holidays": {
+                        "max": 1
+                    }
+                }
+            ],
+            "table": {
+                "rows": {
+                    "select": [
+                        {
+                            "for": {
+                                "in": "taskId"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "taskName"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "itemType"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "baselineStart"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "baselineFinish"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "plannedStart"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "plannedFinish"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "cutoffDate"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "holidays"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "percentComplete"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "predecessors"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "successors"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "totalFloat"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "extraColumns"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "group"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "tooltipFields"
+                            }
+                        }
+                    ],
+                    "dataReductionAlgorithm": {
+                        "window": {
+                            "count": 30000
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "objects": {
+        "text": {
+            "displayName": "Text",
+            "properties": {
+                "fontFamily": {
+                    "displayName": "Font",
+                    "type": {
+                        "formatting": {
+                            "fontFamily": true
+                        }
+                    }
+                },
+                "fontSize": {
+                    "displayName": "Text size",
+                    "type": {
+                        "formatting": {
+                            "fontSize": true
+                        }
+                    }
+                },
+                "textColor": {
+                    "displayName": "Text colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "headerColor": {
+                    "displayName": "Header text colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "headerBackground": {
+                    "displayName": "Header background",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "rows": {
+            "displayName": "Rows",
+            "properties": {
+                "bandedRows": {
+                    "displayName": "Banded rows",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "bandColor": {
+                    "displayName": "Band colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "gridlineColor": {
+                    "displayName": "Row lines",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "groupBackground": {
+                    "displayName": "Group rows",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "bars": {
+            "displayName": "Bars",
+            "properties": {
+                "forecastColor": {
+                    "displayName": "Planned",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "remainingColor": {
+                    "displayName": "Planned after cut-off",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "splitAtCutoff": {
+                    "displayName": "Split planned bar at cut-off",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "baselineColor": {
+                    "displayName": "Baseline",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "progressColor": {
+                    "displayName": "Progress",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "criticalColor": {
+                    "displayName": "Critical flag",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "rounded": {
+                    "displayName": "Rounded bars",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showBaseline": {
+                    "displayName": "Show baseline",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showProgress": {
+                    "displayName": "Show progress",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "barThickness": {
+                    "displayName": "Bar thickness (% of row)",
+                    "type": {
+                        "numeric": true
+                    }
+                }
+            }
+        },
+        "timeline": {
+            "displayName": "Timeline",
+            "properties": {
+                "scale": {
+                    "displayName": "Time scale",
+                    "type": {
+                        "enumeration": [
+                            {
+                                "value": "auto",
+                                "displayName": "Auto"
+                            },
+                            {
+                                "value": "day",
+                                "displayName": "Days"
+                            },
+                            {
+                                "value": "week",
+                                "displayName": "Weeks"
+                            },
+                            {
+                                "value": "month",
+                                "displayName": "Months"
+                            },
+                            {
+                                "value": "quarter",
+                                "displayName": "Quarters"
+                            },
+                            {
+                                "value": "year",
+                                "displayName": "Years"
+                            }
+                        ]
+                    }
+                },
+                "widthPercent": {
+                    "displayName": "Width (% of visual)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "showGridlines": {
+                    "displayName": "Gridlines",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "gridColor": {
+                    "displayName": "Gridline colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "scrollToCutoff": {
+                    "displayName": "Scroll to cut-off on load",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "cutoff": {
+            "displayName": "Cut-off line",
+            "properties": {
+                "show": {
+                    "displayName": "Show",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "fallback": {
+                    "displayName": "Without a cut-off measure",
+                    "type": {
+                        "enumeration": [
+                            {
+                                "value": "today",
+                                "displayName": "Use today"
+                            },
+                            {
+                                "value": "none",
+                                "displayName": "Hide line"
+                            }
+                        ]
+                    }
+                },
+                "lineColor": {
+                    "displayName": "Line colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "lineWidth": {
+                    "displayName": "Line width",
+                    "type": {
+                        "numeric": true
+                    }
+                }
+            }
+        },
+        "variance": {
+            "displayName": "Baseline variance",
+            "properties": {
+                "showIcons": {
+                    "displayName": "Show status",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "style": {
+                    "displayName": "Display",
+                    "type": {
+                        "enumeration": [
+                            {
+                                "value": "iconText",
+                                "displayName": "Icon and days"
+                            },
+                            {
+                                "value": "icon",
+                                "displayName": "Icon only"
+                            },
+                            {
+                                "value": "text",
+                                "displayName": "Days only"
+                            },
+                            {
+                                "value": "colourText",
+                                "displayName": "Coloured days"
+                            }
+                        ]
+                    }
+                },
+                "iconSet": {
+                    "displayName": "Icon set",
+                    "type": {
+                        "enumeration": [
+                            {
+                                "value": "shapes",
+                                "displayName": "Shapes (circle, triangle, octagon)"
+                            },
+                            {
+                                "value": "symbols",
+                                "displayName": "Symbols (tick, exclamation, cross)"
+                            },
+                            {
+                                "value": "dots",
+                                "displayName": "Dots (colour only)"
+                            }
+                        ]
+                    }
+                },
+                "showInLegend": {
+                    "displayName": "Show in legend",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "goodLabel": {
+                    "displayName": "Status 1 name",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "goodDays": {
+                    "displayName": "Status 1: delay up to (days)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "goodColor": {
+                    "displayName": "Status 1 colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "warningLabel": {
+                    "displayName": "Status 2 name",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "warningDays": {
+                    "displayName": "Status 2: delay up to (days)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "warningColor": {
+                    "displayName": "Status 2 colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "badLabel": {
+                    "displayName": "Status 3 name",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "badColor": {
+                    "displayName": "Status 3 colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "legend": {
+            "displayName": "Legend",
+            "properties": {
+                "show": {
+                    "displayName": "Show",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "color": {
+                    "displayName": "Text colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "alignment": {
+                    "displayName": "Alignment",
+                    "type": {
+                        "formatting": {
+                            "alignment": true
+                        }
+                    }
+                },
+                "textSize": {
+                    "displayName": "Text size",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "fontFamily": {
+                    "displayName": "Font",
+                    "type": {
+                        "formatting": {
+                            "fontFamily": true
+                        }
+                    }
+                }
+            }
+        },
+        "parsing": {
+            "displayName": "ID parsing",
+            "properties": {
+                "delimiter": {
+                    "displayName": "List delimiter",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "caseSensitive": {
+                    "displayName": "Case-sensitive IDs",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "display": {
+            "displayName": "Row height and checks",
+            "properties": {
+                "rowHeight": {
+                    "displayName": "Row height",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "showLogicChecks": {
+                    "displayName": "Show logic checks",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showTaskId": {
+                    "displayName": "Show Task ID column",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "milestones": {
+            "displayName": "Milestones",
+            "properties": {
+                "matchValue": {
+                    "displayName": "Milestone when Item type contains",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "position": {
+                    "displayName": "Place marker at",
+                    "type": {
+                        "enumeration": [
+                            {
+                                "value": "auto",
+                                "displayName": "Auto (finish date for Finish Milestone types)"
+                            },
+                            {
+                                "value": "start",
+                                "displayName": "Planned start"
+                            },
+                            {
+                                "value": "finish",
+                                "displayName": "Planned finish"
+                            }
+                        ]
+                    }
+                },
+                "color": {
+                    "displayName": "Marker colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "size": {
+                    "displayName": "Marker size",
+                    "type": {
+                        "numeric": true
+                    }
+                }
+            }
+        },
+        "axis": {
+            "displayName": "Axis",
+            "properties": {
+                "color": {
+                    "displayName": "Text colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "bold": {
+                    "displayName": "Bold",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showYears": {
+                    "displayName": "Show year row",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "textSize": {
+                    "displayName": "Text size",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "fontFamily": {
+                    "displayName": "Font",
+                    "type": {
+                        "formatting": {
+                            "fontFamily": true
+                        }
+                    }
+                }
+            }
+        },
+        "layout": {
+            "displayName": "Layout",
+            "properties": {
+                "padding": {
+                    "displayName": "Padding around visual (px)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "cellPadding": {
+                    "displayName": "Cell padding (px)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "indent": {
+                    "displayName": "Indent per level (px)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "legendGap": {
+                    "displayName": "Space between legend items (px)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "chartGap": {
+                    "displayName": "Space between legend and chart (px)",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "menuGap": {
+                    "displayName": "Space above menu (px)",
+                    "type": {
+                        "numeric": true
+                    }
+                }
+            }
+        },
+        "toolbar": {
+            "displayName": "User Menu",
+            "properties": {
+                "show": {
+                    "displayName": "Show",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showTableView": {
+                    "displayName": "Table view option",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showExpand": {
+                    "displayName": "Expand all and Collapse all options",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "fontFamily": {
+                    "displayName": "Font",
+                    "type": {
+                        "formatting": {
+                            "fontFamily": true
+                        }
+                    }
+                },
+                "textSize": {
+                    "displayName": "Text size",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "color": {
+                    "displayName": "Text colour",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "showTimeScale": {
+                    "displayName": "Time scale options",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showGoToCutoff": {
+                    "displayName": "Go to cut-off or today option",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "trace": {
+            "displayName": "Logic trace",
+            "properties": {
+                "enabled": {
+                    "displayName": "Click a task to trace its logic",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "depth": {
+                    "displayName": "Show",
+                    "type": {
+                        "enumeration": [
+                            {
+                                "value": "direct",
+                                "displayName": "Direct links only"
+                            },
+                            {
+                                "value": "full",
+                                "displayName": "Full chain of predecessors and successors"
+                            }
+                        ]
+                    }
+                },
+                "showLinkColumns": {
+                    "displayName": "Show Predecessors and Successors columns",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "about": {
+            "displayName": "About",
+            "properties": {
+                "version": {
+                    "displayName": "Version",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "createdBy": {
+                    "displayName": "Created by",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "copyright": {
+                    "displayName": "Copyright",
+                    "type": {
+                        "text": true
+                    }
+                }
+            }
+        },
+        "columns": {
+            "displayName": "Grid columns",
+            "properties": {
+                "showPlannedStart": {
+                    "displayName": "Planned start",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showPlannedFinish": {
+                    "displayName": "Planned finish",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showVariance": {
+                    "displayName": "Baseline variance",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showPercent": {
+                    "displayName": "Percent complete",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "showFloat": {
+                    "displayName": "Total float",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "workdays": {
+            "displayName": "Working days",
+            "properties": {
+                "mode": {
+                    "displayName": "Count delay in",
+                    "type": {
+                        "enumeration": [
+                            {
+                                "value": "calendar",
+                                "displayName": "Calendar days"
+                            },
+                            {
+                                "value": "working",
+                                "displayName": "Working days"
+                            }
+                        ]
+                    }
+                },
+                "offMonday": {
+                    "displayName": "Non-working: Monday",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "offTuesday": {
+                    "displayName": "Non-working: Tuesday",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "offWednesday": {
+                    "displayName": "Non-working: Wednesday",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "offThursday": {
+                    "displayName": "Non-working: Thursday",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "offFriday": {
+                    "displayName": "Non-working: Friday",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "offSaturday": {
+                    "displayName": "Non-working: Saturday",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "offSunday": {
+                    "displayName": "Non-working: Sunday",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "holidays": {
+                    "displayName": "Holidays",
+                    "type": {
+                        "text": true
+                    }
+                }
+            }
+        }
+    }
+}

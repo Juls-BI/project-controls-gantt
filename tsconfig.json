@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "allowJs": false,
+        "emitDecoratorMetadata": false,
+        "target": "es2022",
+        "sourceMap": true,
+        "module": "es2015",
+        "moduleResolution": "node",
+        "outDir": "./.tmp/build/",
+        "lib": ["es2022", "dom"],
+        "strict": true,
+        "skipLibCheck": true
+    },
+    "files": ["./src/visual.ts"]
+}

@@ -1,10 +1,10 @@
 # Project Controls Gantt: User Manual
 
-18 Oct 2026 · Juliana Smith
+28 Oct 2026 · Juliana Smith
 
 ## Overview
 
-Project Controls Gantt is a Power BI custom visual for schedule reporting: an accessible task grid with a timeline, baseline comparison, a reporting cut-off line, schedule statuses and predecessor and successor logic. This manual covers version 1.0.33.0, created by Data Tides.
+Project Controls Gantt is a Power BI custom visual for schedule reporting: an accessible task grid with a timeline, baseline comparison, a reporting cut-off line, schedule statuses and predecessor and successor logic. This manual covers version 1.0.34.0, created by Data Tides.
 
 It is built for project controls work that the native Power BI Gantt (preview) does not cover:
 
@@ -93,7 +93,7 @@ Delay = Planned finish − Baseline finish
 
 A positive delay shows as days behind, a negative delay as days ahead, and zero as On baseline. A task needs both a planned finish and a baseline finish to have a variance. As with planned dates, a task with only one baseline date uses it for both, so start milestones, which carry only start dates, are measured against their baseline start.
 
-With **Working days > Count delay in: Working days**, the delay counts only working days after the baseline finish, up to and including the planned finish. Non-working weekdays (Saturday and Sunday by default) and holidays are skipped. A finish moved from Friday to the next Monday is 1 working day late. Values still read as days, such as 18 d behind. A footnote under the chart says whether delay is in calendar or working days, which weekdays are worked and whether bank holidays are excluded.
+With **Working days > Count delay in: Working days**, the delay counts only working days after the baseline finish, up to and including the planned finish. Non-working weekdays (Saturday and Sunday by default) and holidays are skipped. A finish moved from Friday to the next Monday is 1 working day late. Values still read as days, such as 18 d behind. A footnote under the chart says that variance compares finish dates, whether delay is in calendar or working days, which weekdays are worked and whether bank holidays are excluded.
 
 Holidays come from the **Holidays** text box in the format pane, the **Holidays** field, or both. The field takes a measure that lists dates as text, for example:
 
@@ -170,7 +170,7 @@ The visual has four areas from top to bottom: the menu and legend, the logic che
 | Diamond | Milestone; a lighter diamond after the cut-off when the split option is on |
 | Magenta vertical line | Report cut-off date, or today |
 | Black bar with end caps | Group row, spanning its tasks |
-| Footnote under the chart | Whether variance is in calendar or working days, and whether bank holidays are excluded |
+| Footnote under the chart | That variance compares planned finish with baseline finish, whether it is in calendar or working days, and whether bank holidays are excluded |
 
 ### Tooltips
 

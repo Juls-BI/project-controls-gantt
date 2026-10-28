@@ -763,7 +763,7 @@ export class Visual implements IVisual {
     private dayBasisNote(): string {
         const calendar = this.workCalendar;
         if (!calendar) {
-            return "Baseline variance is counted in calendar days, weekends and bank holidays included.";
+            return "Baseline variance compares planned finish with baseline finish, counted in calendar days, weekends and bank holidays included.";
         }
         const names = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         const order = [1, 2, 3, 4, 5, 6, 0];
@@ -772,7 +772,7 @@ export class Visual implements IVisual {
         const days = mondayToFriday ? "Monday to Friday" : working.map((day) => names[day]).join(", ");
         // A count of holidays reads as if only some were removed, so the note just says whether bank holidays are excluded.
         const holidays = calendar.holidays.size > 0 ? ", bank holidays excluded" : "";
-        return "Baseline variance is counted in working days (" + days + ")" + holidays + ".";
+        return "Baseline variance compares planned finish with baseline finish, counted in working days (" + days + ")" + holidays + ".";
     }
 
     private delayDays(row: TaskRow): number | null {

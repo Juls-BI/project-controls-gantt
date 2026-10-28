@@ -4,7 +4,7 @@
         "displayName": "Project Controls Gantt",
         "guid": "projectControlsGantt533F7863925E4967BA9EBE53CB69B1E6",
         "visualClassName": "Visual",
-        "version": "1.0.33.0",
+        "version": "1.0.34.0",
         "description": "Accessible project controls Gantt chart with baseline, plan, progress and actual bars, predecessor and successor logic checks, and a keyboard navigable schedule grid.",
         "supportUrl": "https://github.com/Juls-BI/project-controls-gantt/issues",
         "gitHubUrl": "https://github.com/Juls-BI/project-controls-gantt"
@@ -17,5 +17,5 @@
     "capabilities": "capabilities.json",
     "dependencies": null,
     "stringResources": [],
-    "version": "1.0.33.0"
+    "version": "1.0.34.0"
 }

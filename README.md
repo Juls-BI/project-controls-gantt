@@ -14,7 +14,7 @@ A free custom visual for Microsoft Power BI that turns a project schedule into a
 
 ## Features
 
-- **Baselines:** a baseline bar under every task, and a variance column with On track, At risk and Late statuses.
+- **Baselines:** a baseline bar under every task, and a variance column with On track, At risk and Late statuses. Variance compares **planned finish with baseline finish**, in calendar or working days.
 - **Progress:** the completed share of each task fills its bar.
 - **Cut-off date:** a line for the data date. Planned dates before it count as actuals.
 - **Milestones without DAX:** any activity type containing "Milestone" becomes a diamond.

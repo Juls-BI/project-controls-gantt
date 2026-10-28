@@ -37,7 +37,7 @@ export const DEFAULT_TEXT_SIZE = 18;
 // Keep in step with the version in pbiviz.json, so the format pane shows which build a report is running.
 export const CREATED_BY = "Data Tides";
 export const COPYRIGHT = "© 2026 Data Tides";
-export const VISUAL_VERSION = "1.0.34.0";
+export const VISUAL_VERSION = "1.0.35.0";
 
 class TextCard extends Card {
     font = new formattingSettings.FontControl({

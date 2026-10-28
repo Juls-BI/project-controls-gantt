@@ -4,7 +4,7 @@
 
 ## Overview
 
-Project Controls Gantt is a Power BI custom visual for schedule reporting: an accessible task grid with a timeline, baseline comparison, a reporting cut-off line, schedule statuses and predecessor and successor logic. This manual covers version 1.0.34.0, created by Data Tides.
+Project Controls Gantt is a Power BI custom visual for schedule reporting: an accessible task grid with a timeline, baseline comparison, a reporting cut-off line, schedule statuses and predecessor and successor logic. This manual covers version 1.0.35.0, created by Data Tides.
 
 It is built for project controls work that the native Power BI Gantt (preview) does not cover:
 
@@ -146,7 +146,7 @@ The Predecessors and Successors cells are split on the list delimiter (default c
 | Severity | What it reports |
 | --- | --- |
 | Error | Duplicate Task ID, blank Task ID, a task listing itself, circular logic |
-| Warning | An ID that does not exist, a link only one side lists, an ID that arrived as a number |
+| Warning | An ID that does not exist, a link only one side lists, an ID that arrived as a number, more than 30,000 rows (Power BI sent only the first 30,000) |
 | Note | No predecessor (open start), no successor (open end), an ID listed twice in one cell |
 
 Open-end notes only appear once at least one link exists. Every link is read as finish-to-start with zero lag.
@@ -404,6 +404,14 @@ The visual targets WCAG 2.2 level AA for its own content. The Power BI page arou
 | 2.5.8 Target size | Rows, group toggles and menu items are at least 24 by 24 px |
 | 4.1.2, 4.1.3 Name, role, value, status | Groups announce their level and whether they are expanded; trace and view changes are announced |
 
+**Alt text:** add a short description of the visual for screen reader users under **Format > General > Alt text**. This is a Power BI setting, so it works for this visual like any other. Type the text, or select **fx** next to it to use a measure that changes with the data, for example:
+
+```
+Alt text = "Schedule of " & COUNTROWS ( Schedule ) & " tasks, data date " & FORMAT ( [Cut-off], "d mmm yyyy" )
+```
+
+Screen readers read the alt text when focus reaches the visual, then the grid inside it, which is labelled Project schedule.
+
 **What authors should check:**
 
 - Keep the text names of statuses. With **Icon only** and **Dots**, status depends on colour alone, and the logic checks warn about it.
@@ -423,6 +431,7 @@ The visual targets WCAG 2.2 level AA for its own content. The Power BI page arou
 | Milestones show as bars | Bind the type field to **Item or activity type** and check the word under **Milestones > Milestone when Item type contains** |
 | A setting seems to do nothing | Check **About > Version**. If it shows an older number, import the latest `.pbiviz` again |
 | Show as a table looks unformatted | That view is drawn by Power BI for custom visuals and cannot be styled. Use **Menu > Table view** instead |
+| The logic check line warns about 30,000 rows | Power BI sends the visual at most 30,000 rows and drops the rest. Filter the page or the visual, for example with a project slicer, so fewer tasks are shown |
 | Status counts look wrong | Check the day limits under **Baseline variance**; delay is planned finish minus baseline finish, in calendar or working days as set under Working days |
 
 **Why are group dates different from what I expected?** Group dates are the earliest start and latest finish of every task in the group, including collapsed or hidden ones. See Group roll-ups.
@@ -433,7 +442,7 @@ The visual targets WCAG 2.2 level AA for its own content. The Power BI page arou
 
 | Area | Current behaviour |
 | --- | --- |
-| Rows | Up to 30,000 rows; larger schedules are cut by Power BI |
+| Rows | Up to 30,000 rows; Power BI drops the rest, and the logic check line shows a warning when that happens |
 | Grouping | Up to 6 Group by levels; collapsed groups reopen when the report reloads |
 | Links | Every link is finish-to-start with zero lag; SS, FF, SF and lags are not read |
 | Critical path | Read from Total float; the visual does not calculate a critical path |

@@ -1,7 +1,7 @@
 {
   "name": "project-controls-gantt",
   "description": "Accessible project controls Gantt chart with baseline, plan, progress and actual bars, predecessor and successor logic checks, and a keyboard navigable schedule grid.",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "author": "Juliana Smith",
   "repository": {
     "type": "git",
